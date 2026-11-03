@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#071522">
+  <meta name="description" content="A live classroom oil market simulation. Produce, price and compete for 100 barrels of world demand.">
+  <title>Global Oil Mogul — The world is your market</title>
+  <link rel="stylesheet" href="/styles.css">
+  <script defer src="/app.js"></script>
+</head>
+<body>
+  <svg class="svg-defs" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+    <symbol id="i-oil" viewBox="0 0 32 32"><path d="M7 26h18M10 26l3-19h6l3 19M12 12h8M11 19h10M6 16h6M21 16h5M16 4v3M8 9h4M20 9h4" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-bolt" viewBox="0 0 32 32"><path d="M18 3L7 18h9l-2 11 11-16h-9z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
+    <symbol id="i-ship" viewBox="0 0 32 32"><path d="M3 22l4-11h19l3 11-13 6zM11 11V6h11v5M7 21h20M4 28l3-1 4 1 4-1 4 1 4-1 4 1" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-trend" viewBox="0 0 32 32"><path d="M4 26V5M4 26h24M8 20l7-7 5 4 8-10M22 7h6v6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-globe" viewBox="0 0 32 32"><circle cx="16" cy="16" r="12" fill="none" stroke="currentColor" stroke-width="2"/><path d="M4 16h24M16 4c-9 6-9 18 0 24 9-6 9-18 0-24M7 9h18M7 23h18" fill="none" stroke="currentColor" stroke-width="1.2"/></symbol>
+    <symbol id="i-check" viewBox="0 0 32 32"><path d="M5 16l8 8L27 8" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-lock" viewBox="0 0 32 32"><rect x="7" y="14" width="18" height="14" rx="3" fill="none" stroke="currentColor" stroke-width="2"/><path d="M11 14V9a5 5 0 0110 0v5" fill="none" stroke="currentColor" stroke-width="2"/></symbol>
+  </svg>
+
+  <div id="entry" class="entry">
+    <div class="entry-nav"><div class="brand"><span class="brand-symbol"><svg><use href="#i-oil"/></svg></span><span>GLOBAL <strong>OIL MOGUL</strong></span></div><span class="smallcaps muted">A LIVE BUSINESS SIMULATION</span></div>
+    <div class="entry-content">
+      <div class="entry-hero">
+        <div class="hero-kicker"><span class="live-dot"></span> THE GLOBAL ENERGY MARKET</div>
+        <h1>ONE WORLD.<br><em>100 BARRELS.</em><br>YOUR MOVE.</h1>
+        <p>Build your oil company. Set your price. Choose how much to pump and sell. Every other producer wants the same customers.</p>
+        <div class="hero-metrics"><div><strong>100</strong><span>BARRELS OF DEMAND</span></div><div><strong>REAL</strong><span>RIVAL COMPANIES</span></div><div><strong>LIVE</strong><span>MARKET ROUNDS</span></div></div>
+      </div>
+      <div class="entry-panel">
+        <div class="switch-tabs"><button type="button" class="tab active" id="tab-join">JOIN AS A COMPANY</button><button type="button" class="tab" id="tab-teacher">TEACHER CONTROL</button></div>
+        <form id="join-form" class="entry-form">
+          <span class="form-eyebrow">JOIN THE MARKET</span>
+          <h2>Your company starts here.</h2>
+          <label for="join-code">CLASSROOM ROOM CODE</label><input id="join-code" name="code" maxlength="5" autocomplete="off" placeholder="E.G. K7P2R" required>
+          <label for="join-name">COMPANY NAME</label><input id="join-name" maxlength="32" placeholder="E.G. ATLAS PETROLEUM" required>
+          <button class="primary-btn big" type="submit">ENTER THE WORLD MARKET <span>↗</span></button>
+          <p class="form-hint">Create a company on this device. Your decisions stay private until the market closes.</p><button type="button" id="show-existing-team" class="underlink">Already have a company access code? Join your team.</button>
+        </form>
+        <form id="existing-team-form" class="entry-form" hidden>
+          <span class="form-eyebrow">JOIN YOUR EXISTING COMPANY</span><h2>Work with your team.</h2>
+          <label for="existing-room">CLASSROOM ROOM CODE</label><input id="existing-room" maxlength="5" placeholder="E.G. K7P2R" required>
+          <label for="existing-access">YOUR COMPANY ACCESS CODE</label><input id="existing-access" maxlength="8" placeholder="8-CHARACTER TEAM CODE" required>
+          <button class="primary-btn big" type="submit">JOIN YOUR COMPANY <span>↗</span></button>
+          <button type="button" id="back-to-new-team" class="underlink">Create a different company instead</button>
+        </form>
+        <div id="teacher-entry" hidden>
+          <div class="teacher-choice"><button type="button" id="show-create" class="choice-btn selected">CREATE A NEW MARKET</button><button type="button" id="show-login" class="choice-btn">REJOIN A MARKET</button></div>
+          <form id="create-form" class="entry-form">
+            <span class="form-eyebrow">TEACHER / NEW SESSION</span><h2>Open your exchange.</h2>
+            <label for="create-rounds">NUMBER OF ROUNDS</label><select id="create-rounds"><option value="4">4 ROUNDS</option><option value="6" selected>6 ROUNDS</option><option value="8">8 ROUNDS</option><option value="10">10 ROUNDS</option><option value="12">12 ROUNDS</option></select>
+            <label for="create-password">TEACHER PASSWORD</label><input id="create-password" type="password" minlength="6" placeholder="6+ CHARACTERS" autocomplete="new-password" required>
+            <button class="primary-btn big" type="submit">CREATE THE MARKET <span>↗</span></button>
+          </form>
+          <form id="login-form" class="entry-form" hidden>
+            <span class="form-eyebrow">TEACHER / EXISTING SESSION</span><h2>Return to your exchange.</h2>
+            <label for="login-code">ROOM CODE</label><input id="login-code" maxlength="5" placeholder="E.G. K7P2R" required>
+            <label for="login-password">TEACHER PASSWORD</label><input id="login-password" type="password" required>
+            <button class="primary-btn big" type="submit">OPEN CONTROL ROOM <span>↗</span></button>
+            <button type="button" id="show-restore" class="underlink">Server restarted? Restore a saved session backup.</button>
+          </form>
+          <form id="restore-form" class="entry-form" hidden>
+            <span class="form-eyebrow">TEACHER / RECOVERY</span><h2>Restore your market.</h2>
+            <label for="restore-file">SESSION BACKUP (.JSON)</label><input id="restore-file" type="file" accept=".json,application/json" required>
+            <label for="restore-password">ORIGINAL TEACHER PASSWORD</label><input id="restore-password" type="password" required>
+            <button class="primary-btn big" type="submit">RESTORE CLASSROOM SESSION <span>↗</span></button>
+            <button type="button" id="back-to-login" class="underlink">Back to teacher login</button>
+            <p class="form-hint">Restores the saved company decisions and round history. Keep the backup private because it contains team access codes.</p>
+          </form>
+        </div>
+        <div id="entry-error" class="form-error" role="alert" hidden></div>
+      </div>
+    </div>
+    <div class="entry-footer"><span>STRATEGY / ECONOMICS / COMPETITION</span><span>POWERED BY YOUR DECISIONS, NOT LUCK</span></div>
+  </div>
+
+  <div id="game" class="game" hidden>
+    <header class="game-header">
+      <div class="brand"><span class="brand-symbol"><svg><use href="#i-oil"/></svg></span><span>GLOBAL <strong>OIL MOGUL</strong></span></div>
+      <div class="header-mid"><span id="phase-dot" class="live-dot"></span><strong id="header-phase">EXCHANGE OPEN</strong><span id="header-round">ROUND 01 / 06</span></div>
+      <div class="header-right"><span id="header-identity" class="identity">ATLAS PETROLEUM</span><span id="header-colour" class="identity-dot"></span><button id="leave-btn" class="text-btn" type="button">EXIT</button></div>
+    </header>
+    <div class="info-bar"><div><span class="tag-accent">MARKET INTELLIGENCE</span><span id="market-message">Global oil demand is fixed at 100 barrels.</span></div><div id="room-area" class="room-area">ROOM <strong id="top-code">–</strong> <button class="link-btn" id="copy-room" type="button">COPY JOIN LINK</button></div></div>
+    <div class="workspace">
+      <main class="main-stage" id="main-stage">
+        <div id="world-scene" class="world-scene">
+          <div class="scene-title"><span class="section-overline">01 / GLOBAL EXCHANGE</span><h2>WORLD MARKET <span class="label-light">/ LIVE</span></h2></div>
+          <div class="demand-pill"><span>GLOBAL DEMAND</span><strong>100</strong><small>BARRELS / ROUND</small></div>
+          <svg class="worldmap" viewBox="0 0 1000 550" role="img" aria-label="Stylised world map, global oil trading network and shipping lanes" preserveAspectRatio="xMidYMid meet">
+            <defs>
+              <pattern id="grid" width="56" height="56" patternUnits="userSpaceOnUse"><path d="M56 0H0V56" stroke="#214053" stroke-width=".55" fill="none"/></pattern>
+              <radialGradient id="seaGlow"><stop stop-color="#17435b" stop-opacity=".62"/><stop offset="1" stop-color="#091b2d" stop-opacity="0"/></radialGradient>
+              <linearGradient id="continent"><stop stop-color="#193c4e"/><stop offset="1" stop-color="#153041"/></linearGradient>
+            </defs>
+            <rect width="1000" height="550" fill="url(#grid)" opacity=".52"/><ellipse cx="495" cy="280" rx="440" ry="240" fill="url(#seaGlow)"/>
+            <g class="map-land" fill="url(#continent)" stroke="#3a6173" stroke-width="1.3" stroke-linejoin="round">
+              <path d="M74 115l43-28 49-6 21-20 44 15 27 24-4 29-27 18-9 31-35 7-15 35-20-6-6 36-34-18-13-37-25-10-17-38z"/>
+              <path d="M175 245l46-18 40 17 24 49-7 35-18 28-16 48-25 38-28-20-14-59-22-42 7-45z"/>
+              <path d="M368 136l35-28 51 1 28-24 56 13 56-16 40 12 27-15 54 21 52-2 56 20 36 25 61 10 28 27-22 27-56-2-37-26-34 16-33-18-41 7-20 23-46 5-29-13-34 23-42-13-30-39-35 2-21 24-30-11-10-24-32-17-8-27z"/>
+              <path d="M431 233l41-26 57 14 37 46-6 60-28 48-40 63-31-20-22-59-17-57z"/>
+              <path d="M751 358l55-21 57 18 30 31-12 36-56 12-46-15-26-30z"/>
+              <path d="M900 313l9 10-5 27-13-6z"/><path d="M296 56l28-15 19 25-18 27-31-8z"/><path d="M445 473l66 5 79-4 77 10 86-4 35 21-75 18-109-6-108 4-65-15z"/>
+              <path d="M569 210l18 17 3 27-14 13-15-21z"/>
+            </g>
+            <g fill="none" stroke="#376c7c" stroke-width="1" stroke-dasharray="4 10" opacity=".8"><path d="M158 172Q350 38 560 226"/><path d="M559 226Q700 176 812 380"/><path d="M560 226Q410 420 220 307"/><path d="M800 381Q590 480 220 306"/></g>
+            <g class="map-node"><circle cx="158" cy="172" r="7"/><circle cx="220" cy="307" r="7"/><circle cx="559" cy="226" r="7"/><circle cx="812" cy="380" r="7"/></g>
+            <g class="map-labels"><text x="172" y="161">N. AMERICA</text><text x="221" y="328">S. AMERICA</text><text x="542" y="203">EUROPE</text><text x="788" y="404">ASIA-PACIFIC</text><text x="487" y="300">AFRICA</text><text x="724" y="160">ASIA</text></g>
+          </svg>
+          <div class="oil-facility facility" id="facility-field" role="button" tabindex="0" aria-label="Focus production decisions"><div class="facility-icon"><svg><use href="#i-oil"/></svg></div><div><small>YOUR OIL FIELD</small><strong id="map-production">0 <span>BARRELS</span></strong></div></div>
+          <div class="shipping-facility facility" id="facility-dock" role="button" tabindex="0" aria-label="Focus offered barrels"><div class="facility-icon"><svg><use href="#i-ship"/></svg></div><div><small>YOUR EXPORT TERMINAL</small><strong id="map-offer">0 <span>OFFERED</span></strong></div></div>
+          <div class="price-facility facility" id="facility-price" role="button" tabindex="0" aria-label="Focus oil pricing"><div class="facility-icon"><svg><use href="#i-trend"/></svg></div><div><small>YOUR PRICE</small><strong id="map-price">$70 <span>/ BARREL</span></strong></div></div>
+          <div class="world-note"><span class="live-dot"></span><span id="world-note">All producers compete for one market. Your rivals' decisions remain confidential.</span></div>
+          <div class="scene-bottom"><div class="bar-heading"><span>MARKET CONTROL</span><span id="supply-caption">SHARES REVEALED AFTER EACH ROUND</span></div><div class="market-track" id="market-track"><span class="empty-track">100 BARRELS</span></div><div class="market-key"><span>0% MARKET SHARE</span><span>100% MARKET SHARE</span></div></div>
+        </div>
+        <div id="results-scene" class="results-scene" hidden></div>
+      </main>
+      <aside class="control-panel" id="sidepanel"></aside>
+    </div>
+    <footer class="game-footer" id="footer"></footer>
+  </div>
+  <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+</body>
+</html>
